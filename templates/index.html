@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="refresh" content="10" />
+        <link rel="icon" type="image/x-icon" href="/styles/favicon.ico">
+        <link href="/styles/output.css" rel="stylesheet">
+        <title>SSOReady example application</title>
+    </head>
+    <body>
+        <div id = "logo-holder" class = "absolute px-10 py-10 w-[150px]">
+            <a href="https://ssoready.com" class="absolute w-full w-[150px]">
+                <img src="/styles/logo.png" class="w-full"/>
+            </a>        
+        </div>
+        <div id="parent container" class = "flex flex-col bg-gray-light1 h-screen w-screen justify-center items-center">
+                <div id = "tabs container" class = "flex flex-row bg-gray-light rounded-t-md shadow-inner">
+                    <div id = "tab1" class = "{{tab_1_bg}} w-[150px] h-[50px] rounded-t-md px-1 justify-center items-center">
+                        <a href = "/" class = "flex button items-center justify-center text-center w-full h-full rounded-tl-md text-md">Home</a>
+                    </div>
+                    <div id = "tab2" class = "{{tab_2_bg}} relative  w-[150px] h-[50px] rounded-t-md px-1 justify-center items-center">
+                        <a href = "/initiate_auth" class = "flex button items-center justify-center text-center w-full h-full text-md">Auth</a>
+                    </div>
+                    <div id = "tab3" class = "{{tab_3_bg}} w-[150px] h-[50px] px-1 rounded-t-md justify-center items-center">
+                        <a href = "/ssoready/callback" class = "flex button items-center justify-center text-center w-full h-full text-md">Callback</a>
+                    </div>
+                    <!--
+                    <div id = "tab4" class = "{{tab_4_bg}} w-[100px] h-[50px] rounded-t-md px-1 justify-center items-center">
+                        <a href = "/logout" class = "flex button items-center justify-center text-center w-full h-full rounded-tr-md text-md">Logout</a>
+                    </div>
+                    -->
+                </div>
+                <div id="status card" class = "flex relative flex-col bg-gray1 w-[450px] h-[300px] rounded-b-md px-4 shadow-md justify-center items-center">
+                    <div id="message box" class="flex flex-col gap-4 w-[450px] h-[300px] items-center justify-center px-5 py-5">
+                        <p id="message" class="text-gray-dark text-center text-lg">{{status}}.</p>
+                    </div>
+                    <div class = "absolute bottom-0 my-4 w-60">
+                        <a href="{{nextPath}}" id="Next step" class="flex items-center justify-center w-full bg-mediumgray hover:bg-mediumgray2 hover:shadow-inner text-white text-md px-4 py-1 hover:-translate-y-[0.5px] rounded-md">
+                            {{nextStep}}
+                        </a>
+                    </div>
+                </div> 
+        </div>
+    </body>
+
+
+</html>
