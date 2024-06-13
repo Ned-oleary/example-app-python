@@ -1,3 +1,5 @@
 .env
-/src/__pycache__
 venv
+__pycache__
+/src/__pycache__
+
