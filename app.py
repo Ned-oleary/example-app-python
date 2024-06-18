@@ -3,7 +3,6 @@ from flask_login import LoginManager, UserMixin, current_user, login_user, logou
 from ssoready.client import SSOReady
 from config import Config, Messages, FictionalUsers, ErrorMessages, ShorthandStyles
 
-
 app = Flask(__name__, static_folder='src/styles', static_url_path='/styles')
 app.config.from_object(Config)
 
@@ -82,7 +81,7 @@ def process_callback():
         client = SSOReady(api_key = Config.SSOREADY_API_KEY)
         ssoready_output = client.saml.redeem_saml_access_code(saml_access_code=saml_access_code,)
 
-        assert ssoready_output.organization_external_id == "organization_beta"
+        assert ssoready_output.organization_external_id == "organization_alpha"
 
         new_user = User(user_id = ssoready_output.email)
         new_user.set_authentication()
