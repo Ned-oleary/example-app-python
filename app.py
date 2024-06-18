@@ -3,8 +3,6 @@ from flask_login import LoginManager, UserMixin, current_user, login_user, logou
 from ssoready.client import SSOReady
 from config import Config, Messages, FictionalUsers, ErrorMessages, ShorthandStyles
 
-'''global todo: add whatever the faux python typing system is + add function strings'''
-
 app = Flask(__name__, static_folder='src/styles', static_url_path='/styles')
 app.config.from_object(Config)
 
@@ -28,8 +26,6 @@ class User(UserMixin):
     def set_authentication(self, input = True):
         self._is_authenticated = input
 
-
-''' TODO -- replace with SQLite in the example app repo'''
 YOUR_USERS = {
     0: User(user_id=FictionalUsers.USER1)
 }
