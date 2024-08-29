@@ -5,13 +5,15 @@ load_dotenv()
 
 class Config:
     SSOREADY_API_KEY = os.getenv("API_KEY")
-    SECRET_KEY = os.getenv("SECRET")
+    SECRET_KEY = os.getenv("SECRET_KEY")
+    ORG = os.getenv("ORG")
+    SESSION_TYPE = os.getenv("SESSION_TYPE")
 
 class ErrorMessages:
     VALUE_ERROR_ADD_USER = "add_user() requires a valid User object."
 
 class Messages:
-    STATUS_MESSAGE_SUCCESS_HOME = "You have successfully logged in as the following user: "
+    STATUS_MESSAGE_SUCCESS_HOME = "You have successfully logged in as: "
     STATUS_MESSAGE_FAILURE_HOME = "You're not currently logged in"
     STATUS_MESSAGE_AUTH = "To login, follow the redirect URL -- it will take you to your identity provider"
     STATUS_MESSAGE_CALLBACK = "You've landed back at the 'Callback' endpoint -- return to the 'Home' tab to see whether you had a successful login."
