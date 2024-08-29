@@ -46,13 +46,11 @@ def add_user(user):
 
 @app.route("/")
 def home():
-    print("home")
     if 'username' in session and get_user_authentication(session['username']):
             status = Messages.STATUS_MESSAGE_SUCCESS_HOME + session['username']
             nextStep = Messages.NEXT_STEP_SUCCESS_HOME
             nextPath = url_for("process_logout")
     else:
-        print("no username found")
         status = Messages.STATUS_MESSAGE_FAILURE_HOME
         nextStep = Messages.NEXT_STEP_FAILURE_HOME
         nextPath = url_for("auth_preview")
@@ -60,9 +58,6 @@ def home():
 
 @app.route("/initiate_auth")
 def auth_preview():
-
-    print("initiating auth")
-
     status = Messages.STATUS_MESSAGE_AUTH
     nextStep = Messages.NEXT_STEP_AUTH
 
@@ -77,8 +72,6 @@ def process_callback():
         saml_access_code = request.args["saml_access_code"]
         client = SSOReady(api_key = Config.SSOREADY_API_KEY)
         ssoready_output = client.saml.redeem_saml_access_code(saml_access_code=saml_access_code,)
-
-        print(ssoready_output)
 
         assert ssoready_output.organization_external_id == Config.ORG
 
