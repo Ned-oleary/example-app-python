@@ -1,0 +1,23 @@
+{
+  "name": "example-app-python",
+  "version": "1.0.0",
+  "description": "SECRET = \"xxxxxx\" API_KEY = \"fake_api_key\"",
+  "main": "tailwind.config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ned-oleary/example-app-python.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ned-oleary/example-app-python/issues"
+  },
+  "homepage": "https://github.com/Ned-oleary/example-app-python#readme",
+  "dependencies": {
+    "tailwindcss": "^3.4.10"
+  }
+}
