@@ -24,23 +24,38 @@ YOUR_USERS = {
     0: User(user_id=FictionalUsers.USER1)
 }
 
-def exists_user(user_id):
-    known_emails = [users.user_id for users in YOUR_USERS.values()]
-    return (user_id in known_emails)
-
-def get_user_authentication(user_id) -> bool:
-    for users in YOUR_USERS.values():
-        if users.user_id == user_id:
-            return users.is_authenticated
-    return False
-        
+def get_user(user_id: str) -> dict[User]:
+    found_user = {key: YOUR_USERS[key] for key in YOUR_USERS if YOUR_USERS[key].user_id == user_id}
+    if found_user:
+        return found_user
+    else:
+        return None
 
 
-    
-def add_user(user):
+def exists_user(user_id: str):
+    if get_user(user_id):
+        return True
+    else:
+        return False
+
+def get_user_authentication(user_id: str) -> bool:
+    user = get_user(user_id)
+    if user:
+        key = max(user.keys())
+        return user[key].is_authenticated
+    else:
+        return False
+            
+def upsert_user(user: User):
+
     if not isinstance(user, User) or not user:
         raise ValueError(ErrorMessages.VALUE_ERROR_ADD_USER)
-    if not exists_user(user.user_id):
+    
+    found_user = get_user(user.user_id)
+
+    if found_user:
+        YOUR_USERS[max(found_user.keys())] = user
+    else:
         next_key = max(YOUR_USERS.keys()) + 1
         YOUR_USERS[next_key] = user
 
@@ -77,7 +92,7 @@ def process_callback():
 
         new_user = User(user_id = ssoready_output.email)
         new_user.set_authentication()
-        add_user(new_user)
+        upsert_user(new_user)
 
         session['username'] = new_user.user_id
 
