@@ -1,9 +1,11 @@
-from flask import Flask, render_template, redirect, url_for, request, session
+from flask import Flask, render_template, redirect, url_for, request, session, make_response
 from ssoready.client import SSOReady
 from config import Config, Messages, FictionalUsers, ErrorMessages, ShorthandStyles
 
+
 app = Flask(__name__, static_folder='src/styles', static_url_path='/styles')
 app.config.from_object(Config)
+
 
 class User():
     def __init__(self, user_id, is_active=True):
@@ -24,6 +26,7 @@ YOUR_USERS = {
     0: User(user_id=FictionalUsers.USER1)
 }
 
+
 def get_user(user_id: str) -> dict[User]:
     found_user = {key: YOUR_USERS[key] for key in YOUR_USERS if YOUR_USERS[key].user_id == user_id}
     if found_user:
@@ -37,6 +40,7 @@ def exists_user(user_id: str):
         return True
     else:
         return False
+    
 
 def get_user_authentication(user_id: str) -> bool:
     user = get_user(user_id)
@@ -45,6 +49,7 @@ def get_user_authentication(user_id: str) -> bool:
         return user[key].is_authenticated
     else:
         return False
+    
             
 def upsert_user(user: User):
 
@@ -59,6 +64,7 @@ def upsert_user(user: User):
         next_key = max(YOUR_USERS.keys()) + 1
         YOUR_USERS[next_key] = user
 
+
 @app.route("/")
 def home():
     if 'username' in session and get_user_authentication(session['username']):
@@ -71,6 +77,7 @@ def home():
         nextPath = url_for("auth_preview")
     return(render_template("index.html", status = status, nextStep=nextStep, nextPath = nextPath, tab_1_bg = ShorthandStyles.TAB_SELECTED))
 
+
 @app.route("/initiate_auth")
 def auth_preview():
     status = Messages.STATUS_MESSAGE_AUTH
@@ -80,6 +87,7 @@ def auth_preview():
     nextPath = (client.saml.get_saml_redirect_url(organization_external_id=Config.ORG,)).redirect_url
 
     return(render_template("index.html", status = status, nextStep=nextStep, nextPath = nextPath, tab_2_bg = ShorthandStyles.TAB_SELECTED))
+
 
 @app.route("/ssoready/callback")
 def process_callback():
@@ -105,6 +113,7 @@ def process_callback():
     nextPath = url_for("home")
     return(render_template("index.html", status = status, nextStep=nextStep, nextPath = nextPath, tab_3_bg = ShorthandStyles.TAB_SELECTED))
 
+
 @app.route("/process_logout")
 def process_logout():
     status = Messages.STATUS_MESSAGE_LOGOUT
@@ -112,9 +121,9 @@ def process_logout():
     nextPath = url_for("logout")
     return(render_template("index.html", status = status, nextStep=nextStep, nextPath = nextPath, tab_4_bg = ShorthandStyles.TAB_SELECTED))
 
+
 @app.route("/logout")
 def logout():
     if session['username']:
         session.pop('username', None)
     return(redirect(url_for("home")))
-
